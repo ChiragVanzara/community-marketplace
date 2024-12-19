@@ -2,6 +2,7 @@
     "name": "community-marketplace",
     "version": "1.0.0",
     "scripts": {
+        "build": "npm run build:frontend",
       "install:frontend": "cd frontend && npm install", 
       "build:frontend": "cd frontend && npm run build",
       "install:backend": "cd backend && npm install",
