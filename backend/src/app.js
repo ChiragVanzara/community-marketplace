@@ -2,6 +2,11 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
+import { configDotenv } from "dotenv";
+
+configDotenv({
+  path: './.env'
+});
 
 // Derive __dirname equivalent
 const __filename = fileURLToPath(import.meta.url);
