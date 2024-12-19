@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "build:frontend": "cd ../frontend && npm run build"
   },
   "author": "",
   "license": "ISC",
