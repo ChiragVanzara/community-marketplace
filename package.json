@@ -1,0 +1,15 @@
+{
+    "name": "community-marketplace",
+    "version": "1.0.0",
+    "scripts": {
+      "install:frontend": "cd frontend && npm install", 
+      "build:frontend": "cd frontend && npm run build",
+      "install:backend": "cd backend && npm install",
+      "start:backend": "cd backend && npm start", 
+      "deploy": "npm run install:frontend && npm run build:frontend && npm run install:backend"
+    },
+    "dependencies": {
+      "concurrently": "^7.0.0"
+    }
+  }
+  
