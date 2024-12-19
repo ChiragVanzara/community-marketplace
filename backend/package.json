@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "build:frontend": "cd ../frontend && npm run build"
+    "build:frontend": "cd ../frontend && npm install --include=dev && npm run build"
   },
   "author": "",
   "license": "ISC",
