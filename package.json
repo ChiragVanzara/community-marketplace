@@ -2,15 +2,16 @@
     "name": "community-marketplace",
     "version": "1.0.0",
     "scripts": {
-      "build": "npm install --production && cd frontend && npm install && npm run build",
-      "postinstall": "cd frontend && npm install vite",
-      "install:frontend": "cd frontend && npm install",
-      "build:frontend": "cd frontend && npm run build",
-      "install:backend": "cd backend && npm install",
-      "start:backend": "cd backend && npm start",
-      "deploy": "npm run install:frontend && npm run build:frontend && npm run install:backend"
+        "build": "npm install --production && cd frontend && npm install && npm run build",
+        "postinstall": "cd frontend && npm install vite",
+        "install:frontend": "cd frontend && npm install",
+        "build:frontend": "cd frontend && npm run build",
+        "install:backend": "cd backend && npm install",
+        "start:backend": "cd backend && npm start",
+        "deploy": "npm run install:frontend && npm run build:frontend && npm run install:backend"
     },
     "dependencies": {
-      "concurrently": "^7.0.0"
+        "concurrently": "^7.0.0",
+        "dotenv": "^16.4.7"
     }
-  }
+}
