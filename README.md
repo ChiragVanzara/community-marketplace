@@ -5,6 +5,10 @@ The **Community Marketplace** is a platform where users can buy, sell, and list 
 
 ---
 
+The website is live here: [Community Marketplace](https://community-marketplace.onrender.com/)
+
+---
+
 ## Features
 
 ### 1. **Buy**
