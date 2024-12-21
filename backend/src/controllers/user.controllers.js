@@ -107,7 +107,6 @@ const loginUser = asyncHandler(async (req, res) => {
         throw new ApiError(404, "User not found!");
     }
 
-    console.log(user);
     const isPasswordValid = await user.isPasswordCorrect(password);
 
     if (!isPasswordValid) {
@@ -139,6 +138,26 @@ const loginUser = asyncHandler(async (req, res) => {
         );
 });
 
-const logoutUser = asyncHandler(async (req, res) => {});
+const logoutUser = asyncHandler(async (req, res) => {
+    const userId = req.user?._id;
 
-export { registerUser, loginUser };
+    await User.findByIdAndUpdate(
+        userId,
+        {
+            $unset: {
+                refreshToken: 1,
+            },
+        },
+        {
+            new: true,
+        },
+    );
+
+    return res
+        .status(200)
+        .clearCookie("chitram_accessToken")
+        .clearCookie("chitram_refreshToken")
+        .json(new ApiResponse(200, {}, "User successfully logged out!"));
+});
+
+export { registerUser, loginUser, logoutUser };
