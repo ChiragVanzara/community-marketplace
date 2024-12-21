@@ -96,7 +96,7 @@ const loginUser = asyncHandler(async (req, res) => {
             (field) => String(field).trim().length === 0,
         )
     ) {
-        throw new ApiError(400, "All fields are required!");
+        throw new ApiError(400, "Username, Email, Phone atleast one required!");
     }
 
     const user = await User.findOne({
@@ -160,4 +160,44 @@ const logoutUser = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, {}, "User successfully logged out!"));
 });
 
-export { registerUser, loginUser, logoutUser };
+const changePassword = asyncHandler(async (req, res) => {
+    const { oldPassword, newPassword } = req.body;
+
+    const userId = req.user?._id;
+    if(userId) {
+        throw new ApiError(401, "Unautharized request!")
+    } 
+
+    const user = await User.findById(userId);
+    if(!user) {
+        throw new ApiError(404, "User not found!")
+    }
+
+    const isPasswordValid = user.isPasswordCorrect(oldPassword);
+    if(!isPasswordValid) {
+        throw new ApiError(403, "Password is incorrect!")
+    }
+
+    user.password = newPassword;
+    await user.save({ validateBeforeSave: false });
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200, {}, "Password changed successfully!")
+    )
+});
+
+const getCurrentUser = asyncHandler(async (req, res) => {
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            req.user,
+            "Current user fetched successfully!"
+        )
+    )
+})
+
+export { registerUser, loginUser, logoutUser, changePassword, getCurrentUser };
