@@ -8,6 +8,7 @@ import {
     changePassword,
     getCurrentUser,
     updateUserDetails,
+    updateProfileImage,
 } from "../controllers/user.controllers.js";
 
 const router = Router();
@@ -23,5 +24,9 @@ router.route("/change-password").post(verifyJWT, changePassword);
 router.route("/get-current-user").post(verifyJWT, getCurrentUser);
 
 router.route("/update-details").post(verifyJWT, updateUserDetails);
+
+router
+    .route("/update-profile-image")
+    .post(verifyJWT, upload.single("profileImage"), updateProfileImage);
 
 export default router;
