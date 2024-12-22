@@ -1,3 +1,4 @@
+import { profileEnd } from "console";
 import { User } from "../models/user.models.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
@@ -221,6 +222,42 @@ const updateUserDetails = asyncHandler(async (req, res) => {
     return res.status(200).json(new ApiResponse(200, user, "User details updated successfully!"));
 });
 
+const updateProfileImage = asyncHandler(async (req, res) => {
+    let profileImagePath;
+
+    console.log(req.body)
+    if(req.file && req.file.path > 0) {
+        profileImagePath = req.file.path;
+    }
+
+    if(!profileImagePath) {
+        throw new ApiError(409, "Profile image not found!")
+    }
+
+    const profileImageUrl = uploadOnCloudinary(profileImagePath);
+    if(!profileImageUrl) {
+        throw new ApiError(409, "Error while uploading on cloudinary!")
+    }
+
+    const user = await User.findByIdAndUpdate(
+        req.user?._id,
+        {
+            $set: {
+                profileImage: profileImageUrl,
+            }
+        },
+        { new: true }
+    ).select('-password');
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200, user, "Profile image is updated successfully!")
+    )
+});
+
+
+
 export {
     registerUser,
     loginUser,
@@ -228,4 +265,5 @@ export {
     changePassword,
     getCurrentUser,
     updateUserDetails,
+    updateProfileImage,
 };
