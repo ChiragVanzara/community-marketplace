@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { upload } from "../middlewares/multer.middlewares.js";
 import { verifyJWT } from "../middlewares/auth.middlewares.js";
-import { putProductForSell, deleteImage, addProductImage } from "../controllers/sell.controllers.js";
+import { putProductForSell, deleteImage, addProductImage, updateProduct } from "../controllers/sell.controllers.js";
 
 const router = Router();
 
@@ -12,5 +12,7 @@ router
 router.route('/delete-image').post(verifyJWT, deleteImage);
 
 router.route('/upload-image').post(verifyJWT, upload.single("productImage") , addProductImage);
+
+router.route('/update-details').post(verifyJWT, updateProduct);
 
 export default router;

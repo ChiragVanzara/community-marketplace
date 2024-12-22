@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Product } from "../models/product.models.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
@@ -100,4 +101,42 @@ const addProductImage = asyncHandler(async (req, res) => {
     )
 });
 
-export { putProductForSell, deleteImage, addProductImage };
+const updateProduct = asyncHandler(async (req, res) => {
+    const { _id, name, price, condition, additional } = req.body;
+    
+    const details = {};
+    if(condition) details.condition = condition;
+    if(additional) details.additional = additional;
+    
+    const updateDetails = {};
+    if(name) updateDetails.name = name;
+    if(price) updateDetails.price = price;
+    if(details) updateDetails.details = details;
+
+
+    if(!_id) {
+        throw new ApiError(404, "Product id not found!")
+    }
+
+    const objectId = new mongoose.Types.ObjectId(_id);
+
+    const product = await Product.findByIdAndUpdate(
+        objectId,
+        {
+            $set: updateDetails
+        },
+        { new: true}
+    )
+
+    if(!product) {
+        throw new ApiError(500, "Error while updating details!")
+    }
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200, product, "Products details updated successfully!")
+    )
+})
+
+export { putProductForSell, deleteImage, addProductImage, updateProduct };
