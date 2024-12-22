@@ -164,40 +164,68 @@ const changePassword = asyncHandler(async (req, res) => {
     const { oldPassword, newPassword } = req.body;
 
     const userId = req.user?._id;
-    if(userId) {
-        throw new ApiError(401, "Unautharized request!")
-    } 
+    if (userId) {
+        throw new ApiError(401, "Unautharized request!");
+    }
 
     const user = await User.findById(userId);
-    if(!user) {
-        throw new ApiError(404, "User not found!")
+    if (!user) {
+        throw new ApiError(404, "User not found!");
     }
 
     const isPasswordValid = user.isPasswordCorrect(oldPassword);
-    if(!isPasswordValid) {
-        throw new ApiError(403, "Password is incorrect!")
+    if (!isPasswordValid) {
+        throw new ApiError(403, "Password is incorrect!");
     }
 
     user.password = newPassword;
     await user.save({ validateBeforeSave: false });
 
     return res
-    .status(200)
-    .json(
-        new ApiResponse(200, {}, "Password changed successfully!")
-    )
+        .status(200)
+        .json(new ApiResponse(200, {}, "Password changed successfully!"));
 });
 
 const getCurrentUser = asyncHandler(async (req, res) => {
     return res
-    .status(200)
-    .json(
-        new ApiResponse(
-            200,
-            req.user,
-            "Current user fetched successfully!"
-        )
-    )
-})
+        .status(200)
+        .json(
+            new ApiResponse(
+                200,
+                req.user,
+                "Current user fetched successfully!",
+            ),
+        );
+});
 
-export { registerUser, loginUser, logoutUser, changePassword, getCurrentUser };
+const updateUserDetails = asyncHandler(async (req, res) => {
+    const { username, fullName, email, phone, address } = req.body;
+
+    const updateFields = {};
+    if (username) updateFields.username = username;
+    if (fullName) updateFields.fullName = fullName;
+    if (email) updateFields.email = email;
+    if (phone) updateFields.phone = phone;
+    if (address) updateFields.address = address;
+
+    const user = await User.findByIdAndUpdate(
+        req.user?._id,
+        { $set: updateFields },
+        { new: true, runValidators: true },
+    ).select("-password -refreshToken");
+
+    if (!user) {
+        return res.status(404).json({ msg: "User  not found" });
+    }
+
+    return res.status(200).json(new ApiResponse(200, user, "User details updated successfully!"));
+});
+
+export {
+    registerUser,
+    loginUser,
+    logoutUser,
+    changePassword,
+    getCurrentUser,
+    updateUserDetails,
+};
