@@ -29,7 +29,9 @@ app.get("*", (req, res) => {
 
 //Import routes
 import userRoutes from './routes/user.routers.js';
+import sellRoutes from './routes/sell.routers.js';
 
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/sell', sellRoutes);
 
 export { app };
