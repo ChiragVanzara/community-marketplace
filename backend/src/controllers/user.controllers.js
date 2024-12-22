@@ -91,9 +91,8 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const loginUser = asyncHandler(async (req, res) => {
     const { username, email, phone, password } = req.body;
-
     if (
-        [username, email, phone, password].some(
+        [username, email, phone, password].every(
             (field) => String(field).trim().length === 0,
         )
     ) {
@@ -225,8 +224,7 @@ const updateUserDetails = asyncHandler(async (req, res) => {
 const updateProfileImage = asyncHandler(async (req, res) => {
     let profileImagePath;
 
-    console.log(req.body)
-    if(req.file && req.file.path > 0) {
+    if(req.file && req.file.path.length > 0) {
         profileImagePath = req.file.path;
     }
 
@@ -234,7 +232,7 @@ const updateProfileImage = asyncHandler(async (req, res) => {
         throw new ApiError(409, "Profile image not found!")
     }
 
-    const profileImageUrl = uploadOnCloudinary(profileImagePath);
+    const profileImageUrl = await uploadOnCloudinary(profileImagePath);
     if(!profileImageUrl) {
         throw new ApiError(409, "Error while uploading on cloudinary!")
     }
@@ -255,8 +253,6 @@ const updateProfileImage = asyncHandler(async (req, res) => {
         new ApiResponse(200, user, "Profile image is updated successfully!")
     )
 });
-
-
 
 export {
     registerUser,
