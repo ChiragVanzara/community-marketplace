@@ -137,6 +137,26 @@ const updateProduct = asyncHandler(async (req, res) => {
     .json(
         new ApiResponse(200, product, "Products details updated successfully!")
     )
+});
+
+const deleteProduct = asyncHandler(async (req, res) => {
+    const { _id } = req.body; 
+    if(!_id) {
+        throw new ApiError(404, "Product id not found!")
+    }
+
+    const objectId = new mongoose.Types.ObjectId(_id);
+    const deletedProduct = await Product.deleteOne(objectId);
+
+    if(!deletedProduct) {
+        throw new ApiError(500, "Errow while deleting the product from database!")
+    }
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200, deleteProduct, "Product deleted successfully!")
+    )
 })
 
-export { putProductForSell, deleteImage, addProductImage, updateProduct };
+export { putProductForSell, deleteImage, addProductImage, updateProduct, deleteProduct };

@@ -30,8 +30,12 @@ app.get("*", (req, res) => {
 //Import routes
 import userRoutes from './routes/user.routers.js';
 import sellRoutes from './routes/sell.routers.js';
+import notificationRoutes from './routes/notification.routers.js'; 
+import buyRoutes from "./routes/buy.routers.js";
 
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/sell', sellRoutes);
+app.use('/api/v1/buy', buyRoutes);
+app.use('/api/v1/notification', notificationRoutes)
 
 export { app };
