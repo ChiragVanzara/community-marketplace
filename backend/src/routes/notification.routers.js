@@ -5,6 +5,6 @@ import { sendBuyNotification } from "../controllers/notification.controllers.js"
 
 const router = Router();
 
-router.route('/notify-buy').post(verifyJWT, sendBuyNotification);
+router.route('/notify-buy/:notificationId').post(verifyJWT, sendBuyNotification);
 
 export default router;
