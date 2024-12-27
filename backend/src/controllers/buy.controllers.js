@@ -7,12 +7,12 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 
 const buyProduct = asyncHandler(async (req, res) => {
     const userId = req.user?._id;
-    const productId = req.params;
+    const productId = req.params.productId;
 
     if (!productId) {
         throw new ApiError(409, "Product id is required!");
     }
-    const productIdObject = new mongoose.Types.ObjectId(productId.productId);
+    const productIdObject = new mongoose.Types.ObjectId(productId);
     if (!productIdObject) {
         throw new ApiError(500, "Error while converting the ObjectId");
     }
