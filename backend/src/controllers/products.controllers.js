@@ -7,6 +7,7 @@ import {
     deleteFromCloudinary,
     uploadOnCloudinary,
 } from "../utils/cloudinary.js";
+import { Notification } from "../models/notification.models.js";
 
 const putProductForSell = asyncHandler(async (req, res) => {
     let images;
@@ -140,13 +141,14 @@ const updateProduct = asyncHandler(async (req, res) => {
 });
 
 const deleteProduct = asyncHandler(async (req, res) => {
-    const { _id } = req.body; 
-    if(!_id) {
+    const { productId } = req.params; 
+    console.log(req.params)
+    if(!productId) {
         throw new ApiError(404, "Product id not found!")
     }
 
-    const objectId = new mongoose.Types.ObjectId(_id);
-    const deletedProduct = await Product.deleteOne(objectId);
+    const productObjectId = new mongoose.Types.ObjectId(productId);
+    const deletedProduct = await Product.deleteOne(productObjectId);
 
     if(!deletedProduct) {
         throw new ApiError(500, "Errow while deleting the product from database!")
@@ -157,6 +159,42 @@ const deleteProduct = asyncHandler(async (req, res) => {
     .json(
         new ApiResponse(200, deleteProduct, "Product deleted successfully!")
     )
-})
+});
 
-export { putProductForSell, deleteImage, addProductImage, updateProduct, deleteProduct };
+const buyProduct = asyncHandler(async (req, res) => {
+    const userId = req.user?._id;
+    const productId = req.params.productId;
+
+    if (!productId) {
+        throw new ApiError(409, "Product id is required!");
+    }
+    const productIdObject = new mongoose.Types.ObjectId(productId);
+    if (!productIdObject) {
+        throw new ApiError(500, "Error while converting the ObjectId");
+    }
+
+    const product = await Product.findById(productIdObject);
+    if (!product) {
+        throw new ApiError(404, "Product not found!");
+    }
+
+    const seller = product.seller;
+
+    const notification = await Notification.create({
+        seller,
+        buyer: userId,
+        product: productIdObject,
+    });
+ 
+    return res.status(200).json(
+        new ApiResponse(
+            200,
+            {
+                notification,
+            },
+            "Notification sent successfully!",
+        ),
+    );
+});
+
+export { putProductForSell, deleteImage, addProductImage, updateProduct, deleteProduct, buyProduct };
