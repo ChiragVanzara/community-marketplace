@@ -1,0 +1,77 @@
+{
+    "users": [
+        {
+            "_id": "ObjectId()",
+            "username": "String",
+            "email": "String",
+            "passwordHash": "String",
+            "firstName": "String",
+            "lastName": "String",
+            "profilePictureURL": "String",
+            "location": "String",
+            "aboutMe": "String",
+            "dateJoined": "Date",
+            "isSeller": "Boolean",
+            "isVerified": "Boolean",
+            "lastLogin": "Date",
+            "reviewCount": "Number"
+        }
+    ],
+    "sellerProfiles": [
+        {
+            "_id": "ObjectId()",
+            "storeName": "String",
+            "returnPolicy": "String",
+            "shippingInfo": "String",
+            "averageRating": "Number",
+            "totalSales": "Number"
+        }
+    ],
+    "buyerProfiles": [
+        {
+            "_id": "ObjectId()",
+            "paymentMethods": [
+                {}
+            ],
+            "shippingAddresses": [
+                {}
+            ]
+        }
+    ],
+    "userVerifications": [
+        {
+            "_id": "ObjectId()",
+            "userId": "ObjectId()",
+            "verificationToken": "String",
+            "expirationTime": "Date",
+            "verificationType": "String",
+            "isVerified": "Boolean"
+        }
+    ],
+    "userRatings": [
+        {
+            "_id": "ObjectId()",
+            "raterId": "ObjectId()",
+            "ratedUserId": "ObjectId()",
+            "ratingValue": "Number",
+            "reviewText": "String",
+            "ratingDate": "Date"
+        }
+    ],
+    "userFollows": [
+        {
+            "_id": "ObjectId()",
+            "followerId": "ObjectId()",
+            "followedUserId": "ObjectId()",
+            "followDate": "Date"
+        }
+    ],
+    "savedItems": [
+        {
+            "_id": "ObjectId()",
+            "userId": "ObjectId()",
+            "itemId": "ObjectId()",
+            "savedDate": "Date"
+        }
+    ]
+}
