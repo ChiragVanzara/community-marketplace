@@ -13,12 +13,12 @@ import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 const LandingPage = () => {
     const accessToken = localStorage.getItem('accessToken');
     const navigate = useNavigate();
-    // useEffect(() => {
-    //     if (accessToken) {
-            
-    //         navigate('/home');
-    //     }
-    // }, [])
+    useEffect(() => {
+        if (accessToken) {
+
+            navigate('/home');
+        }
+    }, [])
     return (
         <div className='h-svh'>
             <Navbar />

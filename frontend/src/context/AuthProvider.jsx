@@ -37,6 +37,7 @@ export const AuthProvider = ({ children }) => {
                 toast("Cypher", {
                     description: "SignIn Successful."
                 });
+                await getUser();
                 navigate('/home');
             }
             if (response.status === 401) {

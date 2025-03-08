@@ -1,22 +1,27 @@
 import mongoose, {Schema} from 'mongoose';
 
 const notificationSchema = new Schema({
-    seller: {
+    user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    buyer: {
+    recipient: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+    type: {
+        type: String,
+        enum: ['order', 'chat'],
+        required: true
     },
     product: {
         type: Schema.Types.ObjectId,
         ref: 'Product'
     },
-    accepted: {
+    status: {
         type: String,
-        enum: ['pending', 'accepted', 'decline'],
-        default: "pending"
+        enum: ['read', 'unread'],
+        default: "unread"
     }
 }, { timestamps: true });
 

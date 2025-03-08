@@ -2,10 +2,11 @@
 
 @plugin "tailwindcss-animate";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* @custom-variant dark (&:is(.dark *)); */
 
 :root {
-
   --background: oklch(100% 0 0);
       --foreground: oklch(13.71% 0.036 258.53);
       --card: oklch(100% 0 0);
@@ -44,7 +45,6 @@
 }
 
 .dark {
-
   --background: oklch(13.71% 0.036 258.53);
       --foreground: oklch(98.38% 0.0035 247.86);
       --card: oklch(13.71% 0.036 258.53);
@@ -121,11 +121,15 @@
 
 }
 
+button:hover{
+  cursor: pointer;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-500;
   }
 }

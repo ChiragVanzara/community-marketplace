@@ -13,7 +13,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { AlertCircle } from 'lucide-react'
-import { AuthContext } from '@/context/AuthContext'
+import { AuthContext } from '@/context/AuthProvider'
 
 const SignUpPage = () => {
 

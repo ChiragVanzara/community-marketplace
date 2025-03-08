@@ -5,25 +5,17 @@ const productSchema = new Schema({
         type: String,
         required: true
     },
-    images: [
-        {
-            type: String,
-            required: true // cloudinary url
-        }
-    ],
+    images: [{
+        type: String,
+        required: true // cloudinary url
+    }],
     price: {
         type: Number,
         required: true
     },
-    details: {
-        condition: {
-            type: String,
-            required: true,
-        },
-        additional: {
-            type: String,
-        }
-    },
+    details: [{
+        type: String
+    }],
     seller: {
         type: Schema.Types.ObjectId,
         ref: 'User'
@@ -32,12 +24,10 @@ const productSchema = new Schema({
         type: Number,
         default: 0
     },
-    interestedUsers: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'User'
-        }
-    ]
+    interestedUsers: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 }, { timestamps: true });
 
 export const Product = mongoose.model('Product', productSchema);

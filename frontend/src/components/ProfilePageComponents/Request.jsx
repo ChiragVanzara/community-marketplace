@@ -24,7 +24,7 @@ const Request = (props) => {
                     3 min ago
                 </div>
                 <div>
-                    {request === "pending" && <Button className='text-yellow-400 bg-transparent hover:bg-transparent border border-yellow-400 hover:text-yellow-400'>Pending<FontAwesomeIcon icon={faHourglassEnd} spin /></Button>}
+                    {request === "pending" && <Button variant='ghost' className='text-yellow-400'>Pending<FontAwesomeIcon icon={faHourglassEnd} spin /></Button>}
                     {request === "rejected" && <Button className='border border-red-600 text-red-600 bg-transparent hover:bg-transparent'>Rejected<FontAwesomeIcon icon={faBan} /></Button>}
                     {request === "accepted" && <Button className='bg-green-600 text-white hover:bg-green-500'>Accepted<FontAwesomeIcon icon={faCheck} /></Button>}
                 </div>

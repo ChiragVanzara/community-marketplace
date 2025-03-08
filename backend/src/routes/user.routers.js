@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { upload } from "../middlewares/multer.middlewares.js";
 import { verifyJWT } from "../middlewares/auth.middlewares.js";
 import {
     registerUser,
@@ -13,7 +12,7 @@ import {
 
 const router = Router();
 
-router.route("/register").post(upload.single("profileImage"), registerUser);
+router.route("/register").post(registerUser);
 
 router.route("/login").post(loginUser);
 
@@ -27,6 +26,6 @@ router.route("/update-details").post(verifyJWT, updateUserDetails);
 
 router
     .route("/update-profile-image")
-    .post(verifyJWT, upload.single("profileImage"), updateProfileImage);
+    .post(verifyJWT,updateProfileImage);
 
 export default router;

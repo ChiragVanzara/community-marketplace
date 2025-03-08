@@ -1,4 +1,4 @@
-import { AuthContext } from '@/context/AuthContext';
+import { AuthContext } from '@/context/AuthProvider';
 import React, { useContext, useRef, useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

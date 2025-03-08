@@ -12,14 +12,27 @@ import {
     SidebarTrigger,
     useSidebar
 } from '@/components/ui/sidebar'
+import { AuthContext } from '@/context/AuthProvider';
+import { useTheme } from '@/context/ThemeProvider';
 import { faCircleUser, faInbox, faListCheck, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
 
 const AppSidebar = ({ children }) => {
+    const { theme, setTheme } = useTheme();
     const { open, openMobile, setOpenMobile } = useSidebar();
-    const [darkMode, setDarkMode] = useState(false);
+    const { user } = useContext(AuthContext);
+    const toggleMode = () => {
+        if (theme === 'dark') {
+            setTheme('light')
+        } else {
+            setTheme('dark');
+        }
+        console.log(theme);
+        console.log(document.documentElement.classList.contains("dark"));
+
+    }
     return (
         <>
             <Sidebar variant='floating' collapsible='icon' >
@@ -51,21 +64,21 @@ const AppSidebar = ({ children }) => {
                                 </SidebarMenuButton>
                             </Link>
                         </SidebarMenuItem>
-                        <SidebarMenuItem className='ml-2'>
+                        {user.isSeller && <SidebarMenuItem className='ml-2'>
                             <Link to='/products' onClick={() => setOpenMobile(false)}>
                                 <SidebarMenuButton>
                                     <FontAwesomeIcon icon={faListCheck} size='2xl' />Manage Product
                                 </SidebarMenuButton>
                             </Link>
-                        </SidebarMenuItem>
+                        </SidebarMenuItem>}
                     </SidebarMenu>
                 </SidebarContent>
 
                 <SidebarFooter className='mt-auto'>
                     <SidebarMenu>
                         <SidebarMenuItem>
-                            <SidebarMenuButton onClick={() => setDarkMode(!darkMode)} >
-                                {darkMode ? <FontAwesomeIcon icon={faMoon} /> : <FontAwesomeIcon icon={faSun} />}
+                            <SidebarMenuButton onClick={toggleMode} >
+                                {theme !== 'dark' ? <FontAwesomeIcon icon={faMoon} /> : <FontAwesomeIcon icon={faSun} />}
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                     </SidebarMenu>
