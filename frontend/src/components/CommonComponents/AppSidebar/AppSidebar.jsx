@@ -18,6 +18,7 @@ import { faCircleUser, faInbox, faListCheck, faMoon, faSun } from '@fortawesome/
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
+import { IoIosNotifications } from "react-icons/io";
 
 const AppSidebar = ({ children }) => {
     const { theme, setTheme } = useTheme();
@@ -31,8 +32,8 @@ const AppSidebar = ({ children }) => {
         }
         console.log(theme);
         console.log(document.documentElement.classList.contains("dark"));
-
     }
+    
     return (
         <>
             <Sidebar variant='floating' collapsible='icon' >
@@ -56,6 +57,21 @@ const AppSidebar = ({ children }) => {
                                 </SidebarMenuButton>
                             </Link>
                         </SidebarMenuItem>
+                        {user?.isSeller && <SidebarMenuItem className='ml-2'>
+                            <Link to='/products' onClick={() => setOpenMobile(false)}>
+                                <SidebarMenuButton>
+                                    <FontAwesomeIcon icon={faListCheck} size='2xl' />Manage Product
+                                </SidebarMenuButton>
+                            </Link>
+                        </SidebarMenuItem>}
+                        <SidebarMenuItem className='ml-2'>
+                            <Link to='/notification' onClick={() => setOpenMobile(false)}>
+                                <SidebarMenuButton>
+                                    <IoIosNotifications icon={faInbox} size='2xl' />Notification
+                                    <SidebarMenuBadge>7</SidebarMenuBadge>
+                                </SidebarMenuButton>
+                            </Link>
+                        </SidebarMenuItem>
                         <SidebarMenuItem className='ml-2'>
                             <Link to='/inbox' onClick={() => setOpenMobile(false)}>
                                 <SidebarMenuButton>
@@ -64,13 +80,6 @@ const AppSidebar = ({ children }) => {
                                 </SidebarMenuButton>
                             </Link>
                         </SidebarMenuItem>
-                        {user?.isSeller && <SidebarMenuItem className='ml-2'>
-                            <Link to='/products' onClick={() => setOpenMobile(false)}>
-                                <SidebarMenuButton>
-                                    <FontAwesomeIcon icon={faListCheck} size='2xl' />Manage Product
-                                </SidebarMenuButton>
-                            </Link>
-                        </SidebarMenuItem>}
                     </SidebarMenu>
                 </SidebarContent>
 

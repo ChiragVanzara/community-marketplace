@@ -11,6 +11,7 @@ import SellProductPage from './Views/SellProductPage/SellProductPage'
 import { ProductProvider } from './context/ProductProvider'
 import EditProduct from './Views/EditProduct/EditProduct'
 import ProductPage from './Views/ProductPage/ProductPage'
+import NotificationPage from './Views/NotificationPage/NotificationPage'
 
 const App = () => {
 
@@ -25,6 +26,7 @@ const App = () => {
             <Route path='/sign-up' element={<SignUpPage />} />
             <Route path='/my-profile' element={<ProfilePage />} />
             <Route path='/products' element={<ProductManagmentPage />} />
+            <Route path='/notification' element={<NotificationPage />} />
             <Route path='/products/:id' element={<ProductPage />} />
             <Route path='/sell-product' element={<SellProductPage />} />
             <Route path='/edit-product/:id' element={<EditProduct />} />
