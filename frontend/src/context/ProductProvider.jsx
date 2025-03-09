@@ -200,27 +200,26 @@ export const ProductProvider = ({ children }) => {
 
   const buyProduct = async(id) => {
     try {
-        const response = await axios.get(
-          `http://localhost:8000/api/v1/products/buy/${id}`,
-          { withCredentials: true }
+        const response = await axios.post(
+          `http://localhost:8000/api/v1/products/buy/${id}`, {}, { withCredentials: true }
         );
   
         if (response.status !== 200) {
           handleResponses(response.status);
-          return { success: false, message: "Failed to fetch product!" };
+          return { success: false, message: "Failed to create order!" };
         } else {
           return {
             success: true,
             order: response.data.data.order,
             notification: response.data.data.notification,
-            message: "Failed to fetch product!",
+            message: "Product added in order!",
           };
         }
       } catch (error) {
-        console.error("Error fetching product:", error);
+        console.error("Error while creating order:", error);
         return {
           success: false,
-          message: error?.response?.data?.message || "Failed to fetch product!",
+          message: error?.response?.data?.message || "Failed to create order!",
         };
       }
   }

@@ -31,8 +31,9 @@ function ProductPage() {
     fetch(id);
   }, [id]);
 
-  const handleBuy = () => {
-    
+  const handleBuy = async() => {
+    const result = await buyProduct(id);
+    console.log(result)
   }
 
   return (

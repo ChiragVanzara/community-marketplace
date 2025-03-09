@@ -165,12 +165,14 @@ const fetchByUser = asyncHandler(async (req, res) => {
 
 const buyProduct = asyncHandler(async(req, res) => {
     const { id } = req.params;
+    console.log(id)
 
     if(!id) {
         throw new ApiError(409, "Product id is required!")
     }
 
     const product = await Product.findById(id);
+    console.log(product)
     if(!product) {
         throw new ApiError(404, "Product not found!")
     }
@@ -181,6 +183,7 @@ const buyProduct = asyncHandler(async(req, res) => {
         product,
     })
 
+    console.log(order)
     if(!order) {
         throw new ApiError(500, "Error while creating order!")
     }
@@ -191,6 +194,8 @@ const buyProduct = asyncHandler(async(req, res) => {
         type: 'order',
         product,
     });
+
+    console.log(notification)
 
     if(!notification) {
         throw new ApiError(500, "Error while generating order!")

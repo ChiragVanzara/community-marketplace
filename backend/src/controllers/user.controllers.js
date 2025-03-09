@@ -90,7 +90,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const loginUser = asyncHandler(async (req, res) => {
     const { username, email, phone, password } = req.body;
-    console.log(username, email, phone, password);
+    // console.log(username, email, phone, password);
     if (
         [username, email, phone, password].every(
             (field) => String(field).trim().length === 0,
@@ -98,17 +98,17 @@ const loginUser = asyncHandler(async (req, res) => {
     ) {
         throw new ApiError(400, "Username, Email, Phone atleast one required!");
     }
-    console.log("after checking");
+    // console.log("after checking");
     const user = await User.findOne({
         $or: [{ username }, { email }, { phone }],
     });
-    console.log("user: ", user);
+    // console.log("user: ", user);
     if (!user) {
         throw new ApiError(404, "User not found!");
     }
 
     const isPasswordValid = await user.isPasswordCorrect(password);
-    console.log(isPasswordValid);
+    // console.log(isPasswordValid);
     if (!isPasswordValid) {
         throw new ApiError(401, "Invalid password!");
     }
@@ -117,12 +117,12 @@ const loginUser = asyncHandler(async (req, res) => {
         user._id,
     );
 
-    console.log(accessToken, refreshToken);
+    // console.log(accessToken, refreshToken);
     const loggedInUser = await User.findById(user?._id).select(
         "-password -refreshToken",
     );
 
-    console.log(loggedInUser);
+    // console.log(loggedInUser);
 
     return res
         .status(200)

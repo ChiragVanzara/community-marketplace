@@ -21,7 +21,7 @@ const ProducManageGrid = ({ products }) => {
                 <div className='px-4 py-2 space-y-2'>
                     <h3 className='text-3xl font-semibold'>Product Statistics</h3>
                     <Label className='font-bold'>Product For Sell</Label>
-                    <div className='text-2xl font-light'>{products.length}</div>
+                    <div className='text-2xl font-light'>{products?.length}</div>
                     <Label className='font-bold'>Product Sold</Label>
                     <div className='text-2xl font-light'>{0}</div>
                 </div>
