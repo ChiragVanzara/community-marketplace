@@ -2,6 +2,7 @@ import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'sonner'
+import { useNotificationContext } from "./NotificationProvider";
 
 export const AuthContext = createContext();
 
@@ -12,6 +13,7 @@ export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
     const [user, setUser] = useState({});
     const title = document.title;
+    const { getAllNotificationByUser } = useNotificationContext();
 
     useEffect(() => {
         getUser();
@@ -83,6 +85,7 @@ export const AuthProvider = ({ children }) => {
             if(response.status === 200) {
                 localStorage.removeItem("accessToken");
                 setUser(null)
+                await getAllNotificationByUser();
                 toast("Cypher", {
                     description: "Logout Successfully."
                 });

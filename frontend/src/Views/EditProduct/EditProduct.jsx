@@ -142,7 +142,6 @@ function EditProduct() {
 
   return (
     <div className="h-screen">
-      {/* <Navbar /> */}
       <SidebarProvider defaultOpen={false}>
         <AppSidebar>
           <div className="w-full sticky top-0 z-50">

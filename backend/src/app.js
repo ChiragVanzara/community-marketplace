@@ -26,6 +26,6 @@ import notificationRoutes from './routes/notification.routers.js';
 
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/products', productsRoutes);
-app.use('/api/v1/notification', notificationRoutes);
+app.use('/api/v1/notifications', notificationRoutes);
 
 export { app };

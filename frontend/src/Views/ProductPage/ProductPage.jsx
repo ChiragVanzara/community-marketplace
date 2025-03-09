@@ -18,14 +18,17 @@ function ProductPage() {
   const { getUserById } = useContext(AuthContext);
   const [src, setSrc] = useState(null);
   const [seller, setSeller] = useState(null);
-
+    const { user } = useContext(AuthContext)
   const fetch = async (id) => {
     const result = await getProduct(id);
     setProduct(result.product);
     setSrc(result.product.images[0]);
-    const user = await getUserById(result.product.seller);
-    setSeller(user?.user);
+    const sellerUser = await getUserById(result.product.seller);
+    setSeller(sellerUser?.user);
   };
+
+  const isSeller = seller?.username === user?.username;
+  console.log(isSeller)
 
   useEffect(() => {
     fetch(id);
@@ -135,8 +138,8 @@ function ProductPage() {
                   </div>
                 </CardContent>
 
-                <Button onClick={handleBuy}>
-                    Buy
+                <Button onClick={handleBuy} disabled={isSeller} variant={isSeller ? "ghost" : "default"}>
+                    {isSeller ? "This is your product, you can't buy it!": "Buy"}
                 </Button>
               </Card>
             </div>

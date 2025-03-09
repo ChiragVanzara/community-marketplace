@@ -1,3 +1,4 @@
+import { NavigationMenuSub } from "@radix-ui/react-navigation-menu";
 import axios from "axios";
 import React, { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -208,6 +209,7 @@ export const ProductProvider = ({ children }) => {
           handleResponses(response.status);
           return { success: false, message: "Failed to create order!" };
         } else {
+            navigate('/notification')
           return {
             success: true,
             order: response.data.data.order,

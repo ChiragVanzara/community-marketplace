@@ -26,10 +26,10 @@ const ProductManagmentPage = () => {
     getProductsBySeller();
   }, []);
 
-//   console.log(products);
+  //   console.log(products);
   return (
     <div className="h-screen">
-   ``   <SidebarProvider defaultOpen={false}>
+      <SidebarProvider defaultOpen={false}>
         <AppSidebar>
           <div className="w-full sticky top-0 z-50">
             <HomePageNavbar />
@@ -45,7 +45,7 @@ const ProductManagmentPage = () => {
               <div className="">
                 <div className="flex justify-between items-center w-1/2 mx-auto">
                   <h2 className="text-3xl mb-5">Your Products</h2>
-                  <Button  asChild variant="default">
+                  <Button asChild variant="default">
                     <Link to="/sell-product">
                       <FontAwesomeIcon icon={faPlus} size="lg" />
                       Sell Product
